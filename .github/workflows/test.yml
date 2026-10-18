@@ -16,8 +16,10 @@ jobs:
       HOMEBREW_NO_ANALYTICS: 1
     steps:
       - uses: actions/checkout@v4
-      - name: Install from the public tap
-        run: brew install charliejamesgwapo/tap/repopilot
+      - name: Install the exact tap commit under test
+        run: |
+          brew tap charliejamesgwapo/tap "$GITHUB_WORKSPACE"
+          brew install charliejamesgwapo/tap/repopilot
       - name: Audit and test the formula
         run: |
           brew audit --strict charliejamesgwapo/tap/repopilot
