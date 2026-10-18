@@ -1,0 +1,31 @@
+name: Homebrew
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_ANALYTICS: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install from the public tap
+        run: brew install charliejamesgwapo/tap/repopilot
+      - name: Audit and test the formula
+        run: |
+          brew audit --strict charliejamesgwapo/tap/repopilot
+          brew test charliejamesgwapo/tap/repopilot
+      - name: Verify executable and completion definitions
+        run: |
+          repopilot --version
+          repopilot guide undo --json
+          test -s "$(brew --prefix)/share/zsh/site-functions/_repopilot"
+          test -s "$(brew --prefix)/share/fish/vendor_completions.d/repopilot.fish"
+          test -s "$(brew --prefix)/etc/bash_completion.d/repopilot"
