@@ -40,8 +40,10 @@ class Repopilot < Formula
     assert_equal "undo", guide["id"]
     skills = JSON.parse(shell_output("#{bin}/repopilot skills list --json"))
     assert_equal 10, skills.length
+    project = testpath/"project"
+    project.mkpath
     %w[portable codex claude].each do |target|
-      args = "#{bin}/repopilot skills export debugging --path #{testpath} --target #{target} --json"
+      args = "#{bin}/repopilot skills export debugging --path #{project} --target #{target} --json"
       planned = JSON.parse(shell_output("#{args} --dry-run"))
       assert_equal "planned", planned["status"]
       refute_path_exists Pathname(planned["destination"])
@@ -50,7 +52,7 @@ class Repopilot < Formula
       assert_match "name: repopilot-debugging", (destination/"SKILL.md").read
       assert_match "Jesse Vincent", (destination/"LICENSE.txt").read
       assert_match "Superpowers", (destination/"NOTICE.md").read
-      assert_match "already exists", shell_output("#{args} 2>&1", 1)
+      assert_match "already exists", shell_output("#{args} 2>&1", 2)
     end
     ENV["SHELL"] = "/bin/sh"
     assert_match "REPOPILOT_BREW_SHELL_OK",
