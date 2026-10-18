@@ -31,8 +31,10 @@ If an earlier manually installed copy takes precedence, inspect `type -a repopil
 
 ## Maintenance and verification
 
-The formula pins release v0.2.0. For a new release, update its version, both release URLs, and SHA-256 values after verifying the published downloads. Keep this file and the [application installation guide](https://github.com/CharlieJamesGwapo/RepoPilot/blob/main/docs/installation.md) current.
+The formula pins release v0.3.0. For a new release, update its version, both release URLs, and SHA-256 values after verifying the published downloads. Keep this file and the [application installation guide](https://github.com/CharlieJamesGwapo/RepoPilot/blob/main/docs/installation.md) current.
 
 CI installs the published formula, audits it, tests project JSON output, offline guides, ten built-in skills, all three project skill export layouts and a real shell, and checks completions on Apple Silicon and Intel macOS. No `homebrew/core` availability, signing, notarization or unsupported macOS compatibility is claimed. Binary licensing: MIT.
 
 Version 0.2.0 includes five Superpowers-based development workflow adaptations and five original UI/UX skills. Exports include licenses and notices, never overwrite existing skill directories, and launch no agent.
+
+Version 0.3.0 adds opt-in HTTP output-token limits, provider-reported usage, and an offline local-model catalog with explicit non-overwriting configuration setup. Catalog/setup never downloads model weights or changes saved chat configuration.
