@@ -1,8 +1,9 @@
 class Repopilot < Formula
   desc "Developer shell workspace with local diagnostics and offline workflow guides"
   homepage "https://github.com/CharlieJamesGwapo/RepoPilot"
-  version "0.1.0"
   license "MIT"
+
+  depends_on :macos
 
   on_macos do
     on_arm do
@@ -16,12 +17,10 @@ class Repopilot < Formula
     end
   end
 
-  depends_on :macos
-
   def install
     bin.install "repopilot"
     doc.install "docs"
-    generate_completions_from_executable(bin/"repopilot", "completions", shells: [:bash, :zsh, :fish])
+    generate_completions_from_executable(bin/"repopilot", "completions")
   end
 
   def caveats
